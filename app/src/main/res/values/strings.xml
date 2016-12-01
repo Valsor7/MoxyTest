@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MoxyTest</string>
+    <string name="facebook_app_id">1262424613820546</string>
+    <string name="fetch">fetch</string>
+    <string name="fb_like">Like</string>
+    <string name="switch_on">Linear</string>
+    <string name="switch_off">Grid</string>
+</resources>

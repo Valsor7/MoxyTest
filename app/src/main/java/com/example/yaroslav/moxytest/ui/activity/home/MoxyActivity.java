@@ -28,13 +28,6 @@ public class MoxyActivity extends MvpAppCompatActivity implements MoxyView {
     public static final String TAG = "MoxyActivity";
     private static final int SPAN_COUNT = 2;
 
-    FeedsAdapter.ClickFeedListener mClickFeedListener = new FeedsAdapter.ClickFeedListener() {
-        @Override
-        public void setLike() {
-            mMoxyPresenter.setLike();
-        }
-    };
-
     @InjectPresenter
     MoxyPresenter mMoxyPresenter;
 
@@ -44,8 +37,16 @@ public class MoxyActivity extends MvpAppCompatActivity implements MoxyView {
     @BindView(R.id.switch_layout)
     SwitchCompat mSwitcher;
 
-    FeedsAdapter mFeedsAdapter;
     private AlertDialog mDialog;
+
+    private FeedsAdapter mFeedsAdapter;
+
+    FeedsAdapter.ClickFeedListener mClickFeedListener = new FeedsAdapter.ClickFeedListener() {
+        @Override
+        public void setLike() {
+            mMoxyPresenter.setLike();
+        }
+    };
 
     public static Intent getIntent(final Context context) {
         Intent intent = new Intent(context, MoxyActivity.class);

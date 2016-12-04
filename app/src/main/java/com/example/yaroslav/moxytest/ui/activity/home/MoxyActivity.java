@@ -56,6 +56,7 @@ public class MoxyActivity extends MvpAppCompatActivity implements MoxyView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate: ");
         setContentView(R.layout.activity_moxy);
         ButterKnife.bind(this);
 
@@ -64,12 +65,12 @@ public class MoxyActivity extends MvpAppCompatActivity implements MoxyView {
         mFeedsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mFeedsRecyclerView.setAdapter(mFeedsAdapter);
 
-        mMoxyPresenter.loginFacebook();
+        Log.e(TAG, "onCreate: is first" + mMoxyPresenter.isInRestoreState(this));
 
         mSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked){
+                if (checked) {
                     mFeedsRecyclerView.setLayoutManager(new GridLayoutManager(MoxyActivity.this, SPAN_COUNT));
                 } else {
                     mFeedsRecyclerView.setLayoutManager(new LinearLayoutManager(MoxyActivity.this));
@@ -103,7 +104,7 @@ public class MoxyActivity extends MvpAppCompatActivity implements MoxyView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mDialog != null){
+        if (mDialog != null) {
             mDialog.dismiss();
         }
     }

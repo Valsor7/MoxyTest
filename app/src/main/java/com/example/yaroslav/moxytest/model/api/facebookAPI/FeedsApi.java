@@ -37,27 +37,9 @@ public class FeedsApi {
                 if (!feeds.isEmpty()) {
                     responseCallback.onResult(feeds);
                 } else
-                    responseCallback.onError("Can't parse data");
+                    responseCallback.onError("Empty list");
             }
         }).executeAsync();
-    }
-
-    public void getLikes(AccessToken token, String postId, final RESTCallback<Integer> restCallback) {
-
-        new GraphRequest(token, postId + "/likes?summary=true", null, HttpMethod.GET, new GraphRequest.Callback() {
-            @Override
-            public void onCompleted(GraphResponse response) {
-                try {
-                    int likesCounter = response.getJSONObject()
-                            .getJSONObject("summary")
-                            .getInt("total_count");
-                    restCallback.onResult(likesCounter);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     private List<Feed> parseJsonToFeeds(JSONObject jsonData) {

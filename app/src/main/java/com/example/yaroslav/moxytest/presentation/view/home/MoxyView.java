@@ -10,6 +10,7 @@ import com.example.yaroslav.moxytest.model.api.Feed;
 import java.util.List;
 
 public interface MoxyView extends MvpView {
+    @StateStrategyType(SkipStrategy.class)
     void setFeeds(List<Feed> feeds);
     void showError(String msg);
 }

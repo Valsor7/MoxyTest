@@ -27,16 +27,11 @@ import butterknife.ButterKnife;
 
 public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "FeedsAdapter";
-    public interface ClickFeedListener {
-        void setLike();
-    }
 
     private List<Feed> mFeeds;
-    private ClickFeedListener mClickListener;
 
-    public FeedsAdapter(ClickFeedListener clickListener) {
+    public FeedsAdapter() {
         this.mFeeds = new ArrayList<>();
-        mClickListener = clickListener;
     }
 
     @Override
@@ -48,7 +43,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         FeedVH feedVH = (FeedVH) holder;
-        feedVH.bind(mFeeds.get(position), position);
+        feedVH.bind(mFeeds.get(position));
     }
 
     @Override
@@ -85,38 +80,14 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             mView = itemView;
         }
 
-        void bind(final Feed feed, int position) {
+        void bind(Feed feed) {
             Glide.with(mView.getContext())
                     .load(feed.pictureUrl)
                     .fitCenter()
                     .into(imgViewPicture);
 
-            imgViewPicture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                 //   mClickListener.showFeedDetails(feed);
-                }
-            });
-
-//            textViewLike.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mClickListener.setLike();
-//                }
-//            });
-
-//            tvDescription.setText(feed.getDescription());
-
-            likeViewFb.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "onClick: ");
-                    Toast.makeText(view.getContext(), "dsfs", Toast.LENGTH_SHORT).show();
-                    mClickListener.setLike();
-                }
-            });
             tvName.setText(feed.getName());
-            Log.d("pos", ""+position);
+
             Like like = feed.getLike();
             if (like != null)
                 textViewLikesCounter.setText(String.valueOf(like.getLikeUsers().size()));

@@ -37,7 +37,6 @@ public class MoxyPresenter extends MvpPresenter<MoxyView> {
 
         @Override
         public void onResult(List<Feed> result) {
-            Log.e(TAG, "fetched");
             getViewState().setFeeds(result);
         }
     };
@@ -59,8 +58,8 @@ public class MoxyPresenter extends MvpPresenter<MoxyView> {
         }
     };
 
-    public MoxyPresenter() {
-        Log.e(TAG, "presenter constructor");
+    public MoxyPresenter(Activity activity) {
+        mActivity = activity;
         mFeedsApi = new FeedsApi();
     }
 
@@ -71,7 +70,7 @@ public class MoxyPresenter extends MvpPresenter<MoxyView> {
     }
 
     private void loginFacebook() {
-        if (!isUserLoggedIn()) {
+        if (!isUserLoggedIn() && mActivity != null) {
             mFacebookCallbackManager = CallbackManager.Factory.create();
             LoginManager manager = LoginManager.getInstance();
             manager.registerCallback(mFacebookCallbackManager, requestFacebookCallback);
@@ -92,18 +91,15 @@ public class MoxyPresenter extends MvpPresenter<MoxyView> {
     }
 
     @Override
+    public void detachView(MoxyView view) {
+        super.detachView(view);
+        mActivity = null;
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy: ");
         LoginManager.getInstance().logOut();
-    }
-
-    public void setmActivity(Activity mActivity) {
-        this.mActivity = mActivity;
-    }
-
-    public void setLike() {
-
     }
 
     private boolean isUserLoggedIn(){

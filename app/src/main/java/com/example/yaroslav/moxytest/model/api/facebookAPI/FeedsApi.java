@@ -2,6 +2,8 @@ package com.example.yaroslav.moxytest.model.api.facebookAPI;
 
 import android.os.Bundle;
 
+import com.example.yaroslav.moxytest.R;
+import com.example.yaroslav.moxytest.application.MyApp;
 import com.example.yaroslav.moxytest.model.api.Feed;
 import com.example.yaroslav.moxytest.model.api.Like;
 import com.example.yaroslav.moxytest.presentation.callbacks.RESTCallback;
@@ -11,6 +13,7 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.Streams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +40,7 @@ public class FeedsApi {
                 if (!feeds.isEmpty()) {
                     responseCallback.onResult(feeds);
                 } else
-                    responseCallback.onError("Empty list");
+                    responseCallback.onError(MyApp.getMyApp().getString(R.string.error));
             }
         }).executeAsync();
     }

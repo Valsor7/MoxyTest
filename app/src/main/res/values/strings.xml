@@ -5,4 +5,5 @@
     <string name="fb_like">Like</string>
     <string name="switch_on">Linear</string>
     <string name="switch_off">Grid</string>
+    <string name="error">Empty list</string>
 </resources>
